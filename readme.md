@@ -125,7 +125,7 @@ Features:
 4. Launch the frontend application.
 5. Open the dashboard in your browser to explore live traffic and air pollution analytics.
 
-👨‍💻 Author
+👨‍💻 Author: 
 
 Your Name: Vedant Kale
 
@@ -135,3 +135,4 @@ LinkedIn: https://www.linkedin.com/in/vedant-kale-b75419292
 
 
 ⭐ If you found this project useful, feel free to star the repository!
+
