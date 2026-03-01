@@ -68,7 +68,7 @@ Features:
 - Traffic density visualization
 - Smart routing insights
 
-* Risk levels displayed:
+Risk levels displayed:
 
 🔴 Critical
 
@@ -142,6 +142,7 @@ LinkedIn: https://www.linkedin.com/in/vedant-kale-b75419292
 
 
 ⭐ If you found this project useful, feel free to star the repository!
+
 
 
 
