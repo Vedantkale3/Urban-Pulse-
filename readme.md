@@ -34,7 +34,8 @@ Traffic & AQI Prediction Models
 📊 System Features :-
 
 1️⃣ Smart Dashboard
-* Real-time analytics for traffic and air pollution.
+Real-time analytics for traffic and air pollution.
+
 Features:
 - Peak AQI tracking
 - Average traffic density monitoring
@@ -45,7 +46,8 @@ Features:
 - AQI category distribution
 
 2️⃣ Correlation Analysis
-* Advanced analytics to understand relationships between traffic and pollution.
+Advanced analytics to understand relationships between traffic and pollution.
+
 Metrics included:
 - Traffic Density vs AQI
 - Traffic Density vs PM2.5
@@ -57,7 +59,8 @@ Metrics included:
 - P-value Significance Testing
 
 3️⃣ Live Monitoring Map
-* Interactive city map displaying traffic and pollution levels.
+Interactive city map displaying traffic and pollution levels.
+
 Features:
 - Real-time location monitoring
 - Risk level indicators
@@ -135,5 +138,6 @@ LinkedIn: https://www.linkedin.com/in/vedant-kale-b75419292
 
 
 ⭐ If you found this project useful, feel free to star the repository!
+
 
 
