@@ -106,7 +106,7 @@ Features:
 - Integration with Smart City IoT sensors
 - Expansion to multiple cities
 
-📸 Project Screenshots
+
 # 📸 Project Screenshots
 
 ## 🔐 Login Page
@@ -138,6 +138,7 @@ LinkedIn: https://www.linkedin.com/in/vedant-kale-b75419292
 
 
 ⭐ If you found this project useful, feel free to star the repository!
+
 
 
 
