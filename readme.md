@@ -7,27 +7,27 @@ UrbanPulse is an AI-powered smart city analytics platform designed to monitor tr
 The project was developed for Code4Society Hackathon 2026 under the theme AI-Driven Sustainable Mobility.
 
 🛠 Tools & Technologies Used
-- Frontend
+- Frontend: 
 React.js
 JavaScript
 HTML / CSS
 
-- Backend
+- Backend:
 Python
 Flask / FastAPI
 
-- Data Processing
+- Data Processing: 
 Python (Pandas, NumPy)
 
-- Visualization
+- Visualization: 
 Plotly
 Chart.js
 
-- Mapping
+- Mapping: 
 Leaflet.js
 OpenStreetMap
 
-- Machine Learning / Analytics
+- Machine Learning / Analytics: 
 Correlation Analysis
 Traffic & AQI Prediction Models
 
@@ -126,8 +126,12 @@ Features:
 5. Open the dashboard in your browser to explore live traffic and air pollution analytics.
 
 👨‍💻 Author
+
 Your Name: Vedant Kale
+
 GitHub: https://github.com/Vedantkale3
+
 LinkedIn: https://www.linkedin.com/in/vedant-kale-b75419292
+
 
 ⭐ If you found this project useful, feel free to star the repository!
