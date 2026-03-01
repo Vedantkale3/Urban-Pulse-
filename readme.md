@@ -69,9 +69,13 @@ Features:
 - Smart routing insights
 
 * Risk levels displayed:
+
 🔴 Critical
+
 🟠 High
+
 🟡 Moderate
+
 🟢 Low
 
 📈 Key Analytics Implemented
@@ -138,6 +142,7 @@ LinkedIn: https://www.linkedin.com/in/vedant-kale-b75419292
 
 
 ⭐ If you found this project useful, feel free to star the repository!
+
 
 
 
