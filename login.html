@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UrbanPulse | Login</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0a0f1f, #0d1b2a);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,255,255,0.12), transparent 70%);
+    top: -150px; right: -150px; z-index: 0;
+}
+body::after {
+    content: "";
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,114,255,0.10), transparent 70%);
+    bottom: -100px; left: -100px; z-index: 0;
+}
+
+.auth-card {
+    position: relative; z-index: 2;
+    width: 920px; max-width: 96%;
+    background: rgba(15, 25, 45, 0.97);
+    backdrop-filter: blur(20px);
+    border-radius: 22px; overflow: hidden;
+    box-shadow: 0 0 50px rgba(0,255,255,0.12), 0 20px 60px rgba(0,0,0,0.6);
+    display: flex;
+    animation: slideUp 0.5s ease forwards;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── LEFT BRANDING ── */
+.brand-section {
+    flex: 1;
+    background: linear-gradient(145deg, #003fa3, #0072ff, #00c6ff);
+    color: white;
+    padding: 55px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+.brand-section::before {
+    content: '';
+    position: absolute;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.12);
+    top: -60px; right: -60px;
+}
+.brand-section::after {
+    content: '';
+    position: absolute;
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.08);
+    bottom: 20px; left: -35px;
+}
+.logo-row {
+    display: flex; align-items: center;
+    gap: 13px; margin-bottom: 18px;
+}
+.logo-icon {
+    width: 54px; height: 54px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 50%;
+    display: flex; align-items: center;
+    justify-content: center;
+    font-size: 26px; flex-shrink: 0;
+    backdrop-filter: blur(10px);
+}
+.logo-row h1 {
+    font-weight: 700; font-size: 32px;
+    margin: 0; letter-spacing: -0.5px;
+}
+.tagline {
+    font-size: 13.5px; opacity: 0.88;
+    line-height: 1.7; margin-bottom: 28px;
+}
+.feature-list { list-style: none; padding: 0; margin: 0; }
+.feature-list li {
+    font-size: 13px; opacity: 0.82;
+    margin-bottom: 11px;
+    display: flex; align-items: center; gap: 9px;
+}
+.check {
+    background: rgba(255,255,255,0.22);
+    width: 21px; height: 21px; border-radius: 50%;
+    display: inline-flex; align-items: center;
+    justify-content: center; font-size: 11px; flex-shrink: 0;
+}
+
+/* ── RIGHT FORMS ── */
+.form-section {
+    flex: 1; padding: 48px 42px;
+    color: white;
+    display: flex; flex-direction: column;
+    justify-content: center;
+}
+.form-section h3 {
+    font-weight: 700; font-size: 25px; margin-bottom: 4px;
+}
+.form-subtitle {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.42);
+    margin-bottom: 22px;
+}
+.form-label {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.62);
+    margin-bottom: 5px; display: block;
+}
+.form-control {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.11);
+    color: white;
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-size: 13.5px;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.2s;
+    outline: none;
+    margin-bottom: 13px;
+}
+.form-control::placeholder { color: rgba(255,255,255,0.2); }
+.form-control:focus {
+    background: rgba(255,255,255,0.09);
+    border-color: #00c6ff;
+    box-shadow: 0 0 0 3px rgba(0,198,255,0.13);
+    color: white;
+}
+
+/* ── BUTTONS ── */
+.btn-urban {
+    width: 100%;
+    background: linear-gradient(135deg, #0072ff, #00c6ff);
+    border: none; color: white;
+    font-weight: 600; font-size: 14.5px;
+    padding: 13px; border-radius: 10px;
+    cursor: pointer; transition: all 0.3s;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.2px;
+}
+.btn-urban:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,198,255,0.35);
+}
+
+/* ── GOOGLE BUTTON ── */
+.btn-google {
+    width: 100%;
+    background: white;
+    border: none; color: #3c4043;
+    font-weight: 600; font-size: 14px;
+    padding: 12px; border-radius: 10px;
+    cursor: pointer; transition: all 0.3s;
+    font-family: 'Poppins', sans-serif;
+    display: flex; align-items: center;
+    justify-content: center; gap: 10px;
+    letter-spacing: 0.1px;
+    margin-bottom: 4px;
+}
+.btn-google:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255,255,255,0.2);
+    background: #f8f8f8;
+}
+.btn-google:active { transform: translateY(0); }
+
+.google-icon {
+    width: 20px; height: 20px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23EA4335' d='M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z'/%3E%3Cpath fill='%234285F4' d='M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z'/%3E%3Cpath fill='%23FBBC05' d='M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z'/%3E%3Cpath fill='%2334A853' d='M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z'/%3E%3C/svg%3E") no-repeat center/contain;
+    display: inline-block; flex-shrink: 0;
+}
+
+/* ── DIVIDER ── */
+.divider {
+    display: flex; align-items: center;
+    gap: 10px; margin: 16px 0;
+    color: rgba(255,255,255,0.2);
+    font-size: 12px;
+}
+.divider::before, .divider::after {
+    content: ''; flex: 1; height: 1px;
+    background: rgba(255,255,255,0.1);
+}
+
+/* ── TOGGLE ── */
+.toggle-text {
+    margin-top: 16px; font-size: 12.5px;
+    text-align: center; color: rgba(255,255,255,0.42);
+}
+.toggle-link {
+    color: #00c6ff; cursor: pointer;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.toggle-link:hover { color: #5dd9ff; }
+
+/* ── ERROR BOX ── */
+.error-box {
+    background: rgba(239,68,68,0.12);
+    border: 1px solid rgba(239,68,68,0.3);
+    color: #fca5a5; border-radius: 10px;
+    padding: 10px 14px; font-size: 12.5px;
+    margin-bottom: 14px; display: none;
+}
+
+/* ── HINT BOX ── */
+.hint-box {
+    background: rgba(0,198,255,0.07);
+    border: 1px solid rgba(0,198,255,0.18);
+    border-radius: 10px; padding: 10px 14px;
+    font-size: 11.5px; color: rgba(255,255,255,0.4);
+    margin-bottom: 18px; font-family: monospace; line-height: 1.8;
+}
+.hint-val { color: #00c6ff; }
+
+/* ── GOOGLE DISABLED NOTE ── */
+.google-note {
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    text-align: center;
+    margin-top: 6px;
+}
+.google-note a {
+    color: #00c6ff;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .auth-card { flex-direction: column; }
+    .brand-section { padding: 35px 28px; text-align: center; }
+    .logo-row { justify-content: center; }
+    .feature-list { display: none; }
+    .form-section { padding: 32px 28px; }
+}
+</style>
+</head>
+<body>
+
+<div class="auth-card">
+
+    <!-- LEFT: Branding -->
+    <div class="brand-section">
+        <div class="logo-row">
+            <div class="logo-icon">&#128678;</div>
+            <h1>UrbanPulse</h1>
+        </div>
+        <p class="tagline">
+            AI-Driven Smart Traffic and<br>
+            Air Quality Monitoring System
+        </p>
+        <ul class="feature-list">
+            <li><span class="check">&#10003;</span> Real-time AQI from WAQI API</li>
+            <li><span class="check">&#10003;</span> Traffic Density Correlation</li>
+            <li><span class="check">&#10003;</span> Interactive City Heatmaps</li>
+            <li><span class="check">&#10003;</span> Smart Diversion Engine</li>
+            <li><span class="check">&#10003;</span> Statistical Significance Testing</li>
+        </ul>
+    </div>
+
+    <!-- RIGHT: Forms -->
+    <div class="form-section">
+
+        <!-- Error message -->
+        <div class="error-box" id="errorBox"></div>
+
+
+        <!-- ══ SIGN IN FORM ══ -->
+        <form id="signinForm" method="POST" action="/login">
+            <h3>Welcome Back</h3>
+            <p class="form-subtitle">Sign in to your dashboard</p>
+
+            <!-- Google Login Button -->
+            <button type="button" class="btn-google" onclick="googleLogin()">
+                <span class="google-icon"></span>
+                Continue with Google
+            </button>
+
+            <p class="google-note" id="googleNote">
+                &#9432; Configure Google OAuth in app.py to enable
+                &mdash; <a href="https://console.cloud.google.com" target="_blank">Get Keys</a>
+            </p>
+
+            <div class="divider">or sign in with email</div>
+
+            <label class="form-label">Email Address</label>
+            <input type="email" name="email" class="form-control"
+                   placeholder="Enter your email" required>
+
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-control"
+                   placeholder="Enter your password" required>
+
+            <button type="submit" class="btn-urban">Sign In &#8594;</button>
+
+            <div class="toggle-text">
+                Don't have an account?
+                <span class="toggle-link" onclick="showSignup()">Create one</span>
+            </div>
+        </form>
+
+        <!-- ══ SIGN UP FORM ══ -->
+        <form id="signupForm" method="POST" action="/register" style="display:none;">
+            <h3>Create Account</h3>
+            <p class="form-subtitle">Join UrbanPulse today</p>
+
+            <!-- Google Signup Button -->
+            <button type="button" class="btn-google" onclick="googleLogin()">
+                <span class="google-icon"></span>
+                Sign up with Google
+            </button>
+
+            <div class="divider">or register with email</div>
+
+            <label class="form-label">Full Name</label>
+            <input type="text" name="name" class="form-control"
+                   placeholder="Enter your full name" required>
+
+            <label class="form-label">Email Address</label>
+            <input type="email" name="email" class="form-control"
+                   placeholder="Enter your email" required>
+
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-control"
+                   placeholder="Create a password" required minlength="6">
+
+            <button type="submit" class="btn-urban">Register &#8594;</button>
+
+            <div class="toggle-text">
+                Already have an account?
+                <span class="toggle-link" onclick="showSignin()">Sign In</span>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script>
+    // ── Toggle forms ────────────────────────────────────
+    function showSignup() {
+        document.getElementById("signinForm").style.display = "none";
+        document.getElementById("signupForm").style.display = "block";
+    }
+    function showSignin() {
+        document.getElementById("signupForm").style.display = "none";
+        document.getElementById("signinForm").style.display  = "block";
+    }
+
+    // ── Google Login ─────────────────────────────────────
+    // Redirects to Flask route which handles Google OAuth
+    function googleLogin() {
+        window.location.href = "/login/google";
+    }
+
+    // ── Show errors from URL ──────────────────────────────
+    var params = new URLSearchParams(window.location.search);
+    var err    = params.get("error");
+    if (err) {
+        var box = document.getElementById("errorBox");
+        box.textContent  = "⚠ " + decodeURIComponent(err.replace(/\+/g, " "));
+        box.style.display = "block";
+    }
+    if (params.get("signup") === "true") showSignup();
+</script>
+
+</body>
+</html>

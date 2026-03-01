@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UrbanPulse — Traffic × AQI Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body>
+
+  <!-- ── SIDEBAR ──────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="logo">
+      <span class="logo-icon">◈</span>
+      <span>Urban<b>Pulse</b></span>
+    </div>
+
+    <nav class="nav">
+      <a class="nav-item active" data-page="dashboard" onclick="showPage('dashboard')">
+        <span class="nav-icon">⬡</span> Dashboard
+      </a>
+      <a class="nav-item" data-page="correlation" onclick="showPage('correlation')">
+        <span class="nav-icon">⟁</span> Correlation
+      </a>
+      <a class="nav-item" data-page="map" onclick="showPage('map')">
+        <span class="nav-icon">◎</span> Live Map
+      </a>
+      <a class="nav-item" data-page="diversion" onclick="showPage('diversion')">
+        <span class="nav-icon">⇄</span> Diversions
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="live-badge">
+        <span class="dot"></span> Live Monitoring
+      </div>
+      <div class="sidebar-city">Pune, IN</div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN CONTENT ─────────────────────────────────── -->
+  <main class="main">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1 class="page-title" id="pageTitle">Dashboard</h1>
+        <span class="page-sub">Traffic × Air Quality — Pune, Maharashtra</span>
+      </div>
+      <div class="topbar-right">
+        <div class="time-display" id="clockDisplay"></div>
+        <div class="aqi-badge" id="topAqi">AQI —</div>
+        <div class="user-info">
+          <span class="user-name">👤 {{ username }}</span>
+          <a href="/logout" class="logout-btn">Logout</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ─────────────── PAGE: DASHBOARD ─────────────────── -->
+    <section class="page active" id="page-dashboard">
+
+      <!-- Stat Cards -->
+      <div class="cards-grid">
+        <div class="card card--red">
+          <div class="card-label">Peak AQI Today</div>
+          <div class="card-value" id="card-peak-aqi">—</div>
+          <div class="card-sub">Hazardous threshold: 300</div>
+        </div>
+        <div class="card card--orange">
+          <div class="card-label">Avg Traffic Density</div>
+          <div class="card-value" id="card-traffic">—</div>
+          <div class="card-sub">City-wide average</div>
+        </div>
+        <div class="card card--blue">
+          <div class="card-label">Active Hotspots</div>
+          <div class="card-value" id="card-hotspots">—</div>
+          <div class="card-sub">High traffic + high AQI zones</div>
+        </div>
+        <div class="card card--green">
+          <div class="card-label">Sensors Online</div>
+          <div class="card-value" id="card-sensors">—</div>
+          <div class="card-sub">Across 8 locations</div>
+        </div>
+      </div>
+
+
+      <!-- Real-time AQI Widget -->
+      <div class="realtime-widget" id="realtimeWidget">
+        <div class="rt-left">
+          <div class="rt-label">&#127754; LIVE AQI</div>
+          <div class="rt-value" id="rt-aqi">--</div>
+          <div class="rt-category" id="rt-category">Loading...</div>
+        </div>
+        <div class="rt-divider"></div>
+        <div class="rt-stat">
+          <div class="rt-stat-label">PM2.5</div>
+          <div class="rt-stat-val" id="rt-pm25">--</div>
+        </div>
+        <div class="rt-stat">
+          <div class="rt-stat-label">NO2</div>
+          <div class="rt-stat-val" id="rt-no2">--</div>
+        </div>
+        <div class="rt-stat">
+          <div class="rt-stat-label">CO</div>
+          <div class="rt-stat-val" id="rt-co">--</div>
+        </div>
+        <div class="rt-stat">
+          <div class="rt-stat-label">O3</div>
+          <div class="rt-stat-val" id="rt-o3">--</div>
+        </div>
+        <div class="rt-divider"></div>
+        <div class="rt-source">
+          <div class="rt-source-label">Station</div>
+          <div class="rt-source-val" id="rt-station">--</div>
+          <div class="rt-source-time" id="rt-updated">--</div>
+        </div>
+        <div class="rt-badge" id="rt-badge">
+          <span class="rt-dot"></span>
+          <span id="rt-badge-text">Synthetic</span>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="charts-row">
+        <div class="chart-box chart-box--wide">
+          <div class="chart-header">
+            <span class="chart-title">Hourly Traffic vs AQI Pattern</span>
+            <span class="chart-badge">24h</span>
+          </div>
+          <canvas id="hourlyChart" height="100"></canvas>
+        </div>
+        <div class="chart-box">
+          <div class="chart-header">
+            <span class="chart-title">Traffic vs AQI Scatter</span>
+            <span class="chart-badge">500 pts</span>
+          </div>
+          <canvas id="scatterChart" height="180"></canvas>
+        </div>
+      </div>
+
+
+      <!-- Pie Chart Row -->
+      <div class="charts-row" style="margin-top:16px">
+        <div class="chart-box">
+          <div class="chart-header">
+            <span class="chart-title">AQI Risk Distribution</span>
+            <span class="chart-badge">Donut</span>
+          </div>
+          <div class="pie-wrapper">
+            <canvas id="pieChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-box chart-box--wide">
+          <div class="chart-header">
+            <span class="chart-title">AQI Category Breakdown</span>
+            <span class="chart-badge">500 readings</span>
+          </div>
+          <canvas id="pieBarChart" height="160"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────── PAGE: CORRELATION ───────────────── -->
+    <section class="page" id="page-correlation">
+
+      <div class="charts-row">
+        <div class="chart-box chart-box--wide">
+          <div class="chart-header">
+            <span class="chart-title">Correlation Matrix Heatmap</span>
+            <span class="chart-badge">Pearson r</span>
+          </div>
+          <canvas id="heatmapChart" height="200"></canvas>
+        </div>
+        <div class="chart-box">
+          <div class="chart-header">
+            <span class="chart-title">Correlation Strength</span>
+          </div>
+          <canvas id="corrBarChart" height="200"></canvas>
+        </div>
+      </div>
+
+      <!-- Correlation Table -->
+      <div class="table-box">
+        <div class="chart-header">
+          <span class="chart-title">Correlation Results Table</span>
+        </div>
+        <table class="data-table" id="corrTable">
+          <thead>
+            <tr>
+              <th>Metric Pair</th>
+              <th>Pearson r</th>
+              <th>Spearman r</th>
+              <th>p-value</th>
+              <th>Strength</th>
+              <th>Significant?</th>
+            </tr>
+          </thead>
+          <tbody id="corrTableBody"></tbody>
+        </table>
+      </div>
+
+    </section>
+
+    <!-- ─────────────── PAGE: MAP ───────────────────────── -->
+    <section class="page" id="page-map">
+      <div class="map-wrapper">
+        <div id="leafletMap"></div>
+        <div class="map-legend">
+          <div class="legend-title">Risk Level</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#ef4444"></span> Critical</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#f97316"></span> High</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#eab308"></span> Moderate</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#22c55e"></span> Low</div>
+        </div>
+      </div>
+      <!-- Location Table -->
+      <div class="table-box" style="margin-top:16px">
+        <div class="chart-header"><span class="chart-title">Location Stats</span></div>
+        <table class="data-table">
+          <thead>
+            <tr><th>Location</th><th>Avg Traffic</th><th>Avg AQI</th><th>Avg PM2.5</th><th>Risk</th></tr>
+          </thead>
+          <tbody id="locationTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ─────────────── PAGE: DIVERSIONS ────────────────── -->
+    <section class="page" id="page-diversion">
+
+      <div class="diversion-intro">
+        <div class="diversion-intro-icon">⇄</div>
+        <div>
+          <h2>Smart Diversion Engine</h2>
+          <p>Identifies high-risk congestion + pollution zones and recommends alternative routes to reduce vehicle idling and lower urban AQI.</p>
+        </div>
+      </div>
+
+      <div class="diversion-cards" id="diversionCards">
+        <div class="loading">Loading recommendations...</div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="/static/js/main.js"></script>
+</body>
+</html>
