@@ -31,7 +31,7 @@ OpenStreetMap
 Correlation Analysis
 Traffic & AQI Prediction Models
 
-📊 System Features
+📊 System Features :-
 
 1️⃣ Smart Dashboard
 * Real-time analytics for traffic and air pollution.
@@ -135,4 +135,5 @@ LinkedIn: https://www.linkedin.com/in/vedant-kale-b75419292
 
 
 ⭐ If you found this project useful, feel free to star the repository!
+
 
